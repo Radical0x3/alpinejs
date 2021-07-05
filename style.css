@@ -1,0 +1,275 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 20px;
+  line-height: 1.2;
+  color: #fff;
+}
+body.lock {
+  overflow: hidden;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+.wrapper {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: lightslategrey;
+  border-radius: 10px;
+}
+.wrapper:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.button {
+  display: block;
+  margin: 0 auto;
+  padding: 5px 30px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: oldlace;
+
+  font-size: 20px;
+  line-height: 1.2;
+  color: #000;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+.button.active {
+  background-color: white;
+}
+.button:hover {
+  background-color: mintcream;
+}
+
+.menu__list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+.menu__item {
+  margin: 0 10px;
+}
+
+.slider {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.slider__list {
+  flex: 1;
+}
+
+.slide {
+  margin: 10px;
+  height: 100px;
+}
+.slide.active {
+  outline: 2px solid #000;
+}
+.slide:not(.current-slide) {
+  cursor: pointer;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.current-slide {
+  flex: 2;
+  height: 200px;
+}
+
+.select {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+  color: #000
+}
+.select__header, .select__body {
+  background-color: #fff;
+  border-radius: 10px;
+}
+.select__header {
+  padding: 15px;
+  cursor: pointer;
+}
+.select__header:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+.select__header.active {
+  border-radius: 10px 10px 0 0;
+}
+.select__body {
+  width: 100%;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+}
+.select__body.active {
+  border-radius: 0 0 10px 10px;
+}
+.select__value {
+  font-weight: 700;
+  user-select: none;
+}
+.select__option {
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+.select__option.selected {
+  background-color: aliceblue;
+}
+.select__option:hover {
+  background-color: lightgray;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;  
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.35);
+  color: #000;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.modal__body {
+  height: 100%;
+  padding: 30px;
+  background-color: #eee;
+  overflow: auto;
+  position: relative;
+}
+.modal__close {
+  font-size: 24px;
+  user-select: none;
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: color 0.3S;
+}
+.modal__close:hover {
+  color: #999;
+}
+.modal__text:not(:last-child) {
+  margin-bottom: 20px;
+}
+.modal__image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.todo {
+  max-width: 300px;
+  margin: 0 auto;
+}
+.todo--empty {
+  text-align: center;
+}
+.todo__input {
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 0;
+}
+.todo__list {
+  list-style: none;
+  padding: 0;
+}
+.todo__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo__label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  cursor: pointer;
+}
+.todo__toggle {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.todo__toggle:checked + .todo__value {
+  text-decoration: line-through;
+}
+.todo__value {
+  word-break: break-all;
+}
+.todo__remove {
+  flex: 0;
+  user-select: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.todo__remove:hover {
+  color: #999;
+}
+
+.accordion:not(:last-child) {
+  margin-bottom: 20px;
+}
+.accordion__header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: bisque;
+  border: 0;
+  border-radius: 5px;
+}
+.accordion__header.active {
+  border-radius: 5px 5px 0 0 ;
+}
+.accordion__title {
+  font-size: 24px;
+}
+.accordion__action {
+  font-size: 36px;
+  font-weight: 700;
+}
+.accordion__body {
+  padding: 10px;
+  background: bisque;
+}
+.accordion__body.active {
+  border-radius: 0 0 5px 5px;
+}
+.accordion__content {
+  color: #000;
+}

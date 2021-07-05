@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Toggle visibility -->
+  <div class="wrapper" x-data="{isOpen: false}">
+    <h3 class="title">Toggle visibility</h3>
+    <button class="button" @click="isOpen = !isOpen">Click</button>
+
+    <p class="text" x-show.transition="isOpen" x-cloak>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores, eius. Incidunt error voluptatum reprehenderit maxime, exercitationem ipsum nemo recusandae nam officiis eveniet, temporibus id dignissimos, impedit doloremque quos? Hic, natus?
+    </p>
+  </div>
+  <!--Tabs -->
+  <div class="wrapper" x-data="{ tab: 'tab1' }">
+    <h3 class="title">Tabs</h3>
+
+    <nav class="menu">
+      <ul class="menu__list">
+        <li class="menu__item">
+          <button class="menu__button button" @click="tab = 'tab1'" :class="{'active': tab == 'tab1'}">Tab 1</button>
+        </li>
+        <li class="menu__item">
+          <button class="menu__button button" @click="tab = 'tab2'" :class="{'active': tab == 'tab2'}">Tab 2</button>
+        </li>
+        <li class="menu__item">
+          <button class="menu__button button" @click="tab = 'tab3'" :class="{'active': tab == 'tab3'}">Tab 3</button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="content">
+      <div class="text text--1" x-show="tab == 'tab1'">
+        1) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti amet eligendi magni laudantium impedit, voluptatem doloremque, soluta ratione vitae iste minima. Necessitatibus, esse qui obcaecati possimus maxime aspernatur quo ullam.
+      </div>
+      <div class="text text--2" x-show="tab == 'tab2'">
+        2) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti amet eligendi magni laudantium impedit, voluptatem doloremque, soluta ratione vitae iste minima. Necessitatibus, esse qui obcaecati possimus maxime aspernatur quo ullam. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores nemo possimus omnis dolore consectetur, voluptatem eveniet quas repellat? Accusamus harum provident obcaecati quasi iusto deserunt sapiente officia? Laudantium, facere possimus!
+      </div>
+      <div class="text text--3" x-show="tab == 'tab3'">
+        3) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti amet eligendi magni laudantium impedit, voluptatem doloremque, soluta ratione vitae iste minima. Necessitatibus, esse qui obcaecati possimus maxime aspernatur quo ullam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eveniet vitae facere quasi at veritatis dolor, quidem cupiditate quos, ab repudiandae aperiam enim, repellendus ullam. Maiores culpa facilis nisi! Libero.
+        Odio ipsam in aspernatur non id, fugit modi consectetur quas temporibus, at ratione dicta ab. Inventore, libero, enim molestiae maxime beatae eaque nemo autem commodi expedita accusantium aliquid. Officia, porro.
+      </div>
+    </div>
+  </div>
+  <!-- Image slider/gallery -->
+  <div class="wrapper">
+    <h3 class="title">Slider</h3>
+
+    <div class="slider" x-data="slider()" x-init="currentSlide = slides[0]" @keydown.arrow-left.document="prevSlide" @keydown.arrow-right.document="nextSlide">
+      <div class="slide current-slide">
+        <img :src="currentSlide" alt="slider image">
+      </div>
+
+      <div class="slider__list">
+        <template x-for="slide in slides" :key="slide">
+          <div class="slide" @click="currentSlide = slide" :class="{'active': currentSlide == slide}">
+            <img :src="slide" alt="slider image">
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <!-- Accordion -->
+  <div class="wrapper"  x-data="accordion()" @keydown.escape.window="acc = ''">
+    <h3 class="title">Accordion</h3>
+
+    <template x-for="accordion in accordions" :key="accordion.id">
+      <div class="accordion">
+        <button class="accordion__header" @click="acc !== accordion.title ? acc = accordion.title : acc = '' " :class="{'active': acc == accordion.title}">
+          <span class="accordion__title" x-text="accordion.title"></span>
+          <span class="accordion__action" x-show="acc === accordion.title">−</span>
+          <span class="accordion__action" x-show="acc !== accordion.title">+</span>
+        </button>
+  
+        <div class="accordion__body" x-show.transition.in.opacity="acc == accordion.title" :class="{'active': acc == accordion.title}">
+          <div class="accordion__content" x-text="accordion.text"></div>
+        </div>
+      </div>
+    </template>
+  </div>
+  <!-- Spoiler -->
+  <div class="wrapper">
+    <h3 class="title">Spoiler</h3>
+
+    <div class="accordion" x-data="spoiler()" @keydown.escape.window="isOpen = false">
+      <button class="accordion__header" @click="isOpen = !isOpen" :class="{'active': isOpen}">
+        <span class="accordion__title">Spoiler #1</span>
+        <span class="accordion__action" x-show="isOpen">−</span>
+        <span class="accordion__action" x-show="!isOpen">+</span>
+      </button>
+
+      <div class="accordion__body" x-show.transition.in.opacity="isOpen" :class="{'active': isOpen}">
+        <div class="accordion__content">
+          1) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ab, corrupti neque numquam repellat dolorem voluptatibus. Ut inventore eum deserunt, eligendi ratione totam aliquid odio necessitatibus, dolores corrupti magni exercitationem?
+          Hic, quod. Ut doloremque molestias facilis aliquid placeat unde architecto accusantium dignissimos recusandae in quas quidem, repellendus aperiam voluptate exercitationem nihil nisi laborum perferendis repellat! Labore praesentium laudantium in est!
+          Itaque corporis animi ipsam vel consequatur libero facilis quisquam nam omnis minima sed, ipsa minus dignissimos numquam perspiciatis placeat laudantium incidunt, autem architecto fuga eius debitis nesciunt unde rerum. Consectetur.
+          Dicta eveniet maiores consequuntur laboriosam perferendis amet quas, unde, rem expedita asperiores beatae earum laudantium quia a nisi harum. Delectus enim nesciunt animi ad cupiditate facere rerum modi excepturi reiciendis.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" x-data="spoiler()" @keydown.escape.window="isOpen = false">
+      <button class="accordion__header" @click="isOpen = !isOpen" :class="{'active': isOpen}">
+        <span class="accordion__title">Spoiler #2</span>
+        <span class="accordion__action" x-show="isOpen">−</span>
+        <span class="accordion__action" x-show="!isOpen">+</span>
+      </button>
+
+      <div class="accordion__body" x-show.transition.in.opacity="isOpen" :class="{'active': isOpen}">
+        <div class="accordion__content">
+          2) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ab, corrupti neque numquam repellat dolorem voluptatibus. Ut inventore eum deserunt, eligendi ratione totam aliquid odio necessitatibus, dolores corrupti magni exercitationem?
+          Hic, quod. Ut doloremque molestias facilis aliquid placeat unde architecto accusantium dignissimos recusandae in quas quidem, repellendus aperiam voluptate exercitationem nihil nisi laborum perferendis repellat! Labore praesentium laudantium in est!
+          Itaque corporis animi ipsam vel consequatur libero facilis quisquam nam omnis minima sed, ipsa minus dignissimos numquam perspiciatis placeat laudantium incidunt, autem architecto fuga eius debitis nesciunt unde rerum. Consectetur.
+          Dicta eveniet maiores consequuntur laboriosam perferendis amet quas, unde, rem expedita asperiores beatae earum laudantium quia a nisi harum. Delectus enim nesciunt animi ad cupiditate facere rerum modi excepturi reiciendis.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion" x-data="spoiler()" @keydown.escape.window="isOpen = false">
+      <button class="accordion__header" @click="isOpen = !isOpen" :class="{'active': isOpen}">
+        <span class="accordion__title">Spoiler #3</span>
+        <span class="accordion__action" x-show="isOpen">−</span>
+        <span class="accordion__action" x-show="!isOpen">+</span>
+      </button>
+
+      <div class="accordion__body" x-show.transition.in.opacity="isOpen" :class="{'active': isOpen}">
+        <div class="accordion__content">
+          3) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam ab, corrupti neque numquam repellat dolorem voluptatibus. Ut inventore eum deserunt, eligendi ratione totam aliquid odio necessitatibus, dolores corrupti magni exercitationem?
+          Hic, quod. Ut doloremque molestias facilis aliquid placeat unde architecto accusantium dignissimos recusandae in quas quidem, repellendus aperiam voluptate exercitationem nihil nisi laborum perferendis repellat! Labore praesentium laudantium in est!
+          Itaque corporis animi ipsam vel consequatur libero facilis quisquam nam omnis minima sed, ipsa minus dignissimos numquam perspiciatis placeat laudantium incidunt, autem architecto fuga eius debitis nesciunt unde rerum. Consectetur.
+          Dicta eveniet maiores consequuntur laboriosam perferendis amet quas, unde, rem expedita asperiores beatae earum laudantium quia a nisi harum. Delectus enim nesciunt animi ad cupiditate facere rerum modi excepturi reiciendis.
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Select -->
+  <div class="wrapper">
+    <h3 class="title">Select</h3>
+
+    <div class="select" x-data="select()" x-init="selectedValue = options[0]" @click.away="isOpen = false" @keydown.escape.window="isOpen = false">
+      <div class="select__header" tabindex="0" :class="{'active': isOpen}" @click="isOpen = !isOpen">
+        <div class="select__value" x-text="selectedValue"></div>
+      </div>
+
+      <div class="select__body" x-show="isOpen" :class="{'active': isOpen}">
+        <template x-for="opt in options" :key="opt">
+          <div class="select__option" x-text="opt" @click="selectedValue = opt; isOpen = false"></div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <!-- Multiple select -->
+  <div class="wrapper">
+    <h3 class="title">Multiple select</h3>
+
+    <div class="select" x-data="multipleSelect()" @click.away="isOpen = false" @keydown.escape.window="isOpen = false">
+      <div class="select__header" tabindex="0" :class="{'active': isOpen}" @click="isOpen = !isOpen">
+        <div class="select__value" x-text="selectedValues.join(', ')"></div>
+      </div>
+
+      <div class="select__body" x-show="isOpen" :class="{'active': isOpen}">
+        <template x-for="opt in options" :key="opt">
+          <div class="select__option" x-text="opt" @click="setValue(opt, event.target)"></div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="wrapper" x-data="modal()" @keydown.escape.window="isOpen = false; bodyUnlock()">
+    <h3 class="title">Modal</h3>
+    <button class="button" @click="isOpen = true; bodyLock()">Open modal</button>
+
+    <div class="modal" x-show="isOpen" x-cloak>
+      <div class="modal__body" @click.away="isOpen = false; bodyUnlock()">
+        <div class="modal__close" @click="isOpen = false; bodyUnlock()">✖</div>
+        <div class="title">Lorem ipsum</div>
+        <div class="subtitle"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae ex sit saepe quisquam minima</div>
+
+        <div class="modal__text">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae ex sit saepe quisquam, minima, quod veritatis, debitis ullam delectus possimus vero hic officiis recusandae. Error possimus labore eaque ratione laborum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Non dolorum, nobis, quo iste optio eveniet dicta porro vero necessitatibus ipsa ullam rem, voluptate ipsam harum temporibus et quos animi repudiandae.
+        </div>
+        
+        <img src="https://dummyimage.com/1200x300" alt="modal image" class="modal__image">
+        
+        <div class="modal__text">
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus velit, quos dignissimos similique nam, architecto minus numquam explicabo dicta nulla, repellendus nobis. Corrupti tempore, fugit maxime minima tempora pariatur vitae!
+         Provident quaerat, exercitationem molestiae ipsam deserunt ex soluta incidunt, molestias suscipit quasi illo ducimus iusto repellat nihil! Pariatur dolorem minus delectus excepturi provident corrupti labore blanditiis ullam? Voluptatibus, non impedit.
+         Sint repellat, nulla, rem aut corrupti sequi sed iusto velit dolor, atque vitae. Expedita voluptas cum vel corrupti molestias aperiam quos saepe excepturi necessitatibus voluptatum, rerum ipsam nostrum beatae soluta!
+         Accusamus doloremque odio unde impedit ullam explicabo delectus error dolor aliquid, molestias architecto dicta distinctio repellendus reprehenderit pariatur ipsum maiores consequatur. Labore nisi similique repellat porro totam iure, esse provident?
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Todos -->
+  <div class="wrapper">
+    <h3 class="title">Todos</h3>
+
+    <div class="todo" x-data="todos()">
+      <input type="text" class="todo__input" placeholder="Input todo..." x-model="inputTodo" @keydown.enter="addTodo">
+
+      <ul class="todo__list">
+        <template x-for="todo in todos" :key="todo.id">
+          <li class="todo__item">
+            <label class="todo__label">
+              <input type="checkbox" class="todo__toggle" x-model="todo.isCompleted">
+              <div class="todo__value" x-text="todo.text"></div>
+            </label>
+            <div class="todo__remove" tabindex="0" @click="removeTodo(todo.id)">✖</div>
+          </li>
+        </template>
+      </ul>
+
+     <template x-if="todos.length < 1">
+      <div class="todo--empty">Your todo list is empty!</div>
+     </template>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.min.js" integrity="sha512-Atu8sttM7mNNMon28+GHxLdz4Xo2APm1WVHwiLW9gW4bmHpHc/E2IbXrj98SmefTmbqbUTOztKl5PDPiu0LD/A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="index.js"></script>
+</body>
+</html>
