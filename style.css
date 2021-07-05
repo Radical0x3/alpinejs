@@ -122,6 +122,10 @@ body.lock {
   font-weight: 700;
   user-select: none;
 }
+.select__value.placeholder {
+  color: rgba(0, 0, 0, 0.65);
+  font-style: italic;
+}
 .select__option {
   padding: 10px 15px;
   border-radius: 10px;
@@ -252,6 +256,7 @@ body.lock {
   background: bisque;
   border: 0;
   border-radius: 5px;
+  cursor: pointer;
 }
 .accordion__header.active {
   border-radius: 5px 5px 0 0 ;
@@ -272,4 +277,60 @@ body.lock {
 }
 .accordion__content {
   color: #000;
+}
+
+.rating__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.rating__item {
+  margin: 0 5px;
+}
+.rating__star {
+  width: 40px;
+  height: 40px;
+  fill: #fff;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.rating__star.hover {
+  fill: #cdcdcd;
+}
+.rating__star.selected {
+  fill: orange;
+}
+
+.clock__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.clock__title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.clock__item {
+  min-width: 60px;
+  padding: 20px;
+  margin: 0 10px;
+  background: #ccc;
+  border-radius: 5px;
+  font-size: 24px;
+  font-weight: 700;
+  position: relative;
+  text-align: center;
+}
+.clock__item:not(:last-child)::after {
+  content: ":";
+  display: inline-block;
+  color: #fff;
+
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  transform: translate(50%, -50%);
 }

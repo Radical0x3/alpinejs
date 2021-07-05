@@ -8,6 +8,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Clock -->
+  <div class="wrapper">
+    <h3 class="title">Clock</h3>
+    
+    
+    <div class="clock" x-data="clock()" x-init="init()">
+      <div class="clock__title" x-text="getDate()"></div>
+
+      <div class="clock__body">
+        <div class="clock__item" x-text="getHours()"></div>
+        <div class="clock__item" x-text="getMinutes()"></div>
+        <div class="clock__item" x-text="getSeconds()"></div>
+      </div>
+    </div>
+  </div>
   <!-- Toggle visibility -->
   <div class="wrapper" x-data="{isOpen: false}">
     <h3 class="title">Toggle visibility</h3>
@@ -161,7 +176,7 @@
 
     <div class="select" x-data="multipleSelect()" @click.away="isOpen = false" @keydown.escape.window="isOpen = false">
       <div class="select__header" tabindex="0" :class="{'active': isOpen}" @click="isOpen = !isOpen">
-        <div class="select__value" x-text="selectedValues.join(', ')"></div>
+        <div class="select__value" x-text="selectedValues.length > 0 ? selectedValues.join(', ') : 'Select something...'" :class="{'placeholder': selectedValues.length < 1}"></div>
       </div>
 
       <div class="select__body" x-show="isOpen" :class="{'active': isOpen}">
@@ -219,6 +234,22 @@
      <template x-if="todos.length < 1">
       <div class="todo--empty">Your todo list is empty!</div>
      </template>
+    </div>
+  </div>
+  <!-- Rating -->
+  <div class="wrapper">
+    <h3 class="title">Rating</h3>
+
+    <div class="rating" x-data="{ totalValue: 0, hoverValue: 0 }">
+      <ul class="rating__list">
+        <template x-for="i in [1, 2, 3, 4, 5]" :key="i">
+          <li class="rating__item" @click="totalValue = i" @mouseenter="hoverValue = i" @mouseleave="hoverValue = 0">
+            <svg class="rating__star" :class="{'selected': i <= totalValue, 'hover': i <= hoverValue}" viewBox="0 -10 511.991 511" xmlns="http://www.w3.org/2000/svg">
+              <path d="M510.652 185.883a27.177 27.177 0 00-23.402-18.688l-147.797-13.418-58.41-136.75C276.73 6.98 266.918.497 255.996.497s-20.738 6.483-25.023 16.53l-58.41 136.75-147.82 13.418c-10.837 1-20.013 8.34-23.403 18.688a27.25 27.25 0 007.937 28.926L121 312.773 88.059 457.86c-2.41 10.668 1.73 21.7 10.582 28.098a27.087 27.087 0 0015.957 5.184 27.14 27.14 0 0013.953-3.86l127.445-76.203 127.422 76.203a27.197 27.197 0 0029.934-1.324c8.851-6.398 12.992-17.43 10.582-28.098l-32.942-145.086 111.723-97.964a27.246 27.246 0 007.937-28.926zM258.45 409.605"></path>
+            </svg>
+          </li>
+        </template>
+      </ul>
     </div>
   </div>
 

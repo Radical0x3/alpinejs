@@ -1,3 +1,34 @@
+function clock() {
+  return {
+    time: Date.now(),
+    formattedTime: {
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    },
+    init: function() {
+      setInterval(() => {
+        this.time = Date.now();
+      }, 1000)
+    },
+    getHours: function() {
+      const h = new Date(this.time).getHours();
+      return h < 10 ? `0${h}` : h;
+    },
+    getMinutes: function() {
+      const m = new Date(this.time).getMinutes();
+      return m < 10 ? `0${m}` : m;
+    },
+    getSeconds: function() {
+      const s = new Date(this.time).getSeconds();
+      return s < 10 ? `0${s}` : s;
+    },
+    getDate: function() {
+      return new Date(this.time).toLocaleDateString();
+    }
+  }
+}
+
 function slider() {
   return {
     slides: ["https://dummyimage.com/400x300", "https://dummyimage.com/555x444", "https://dummyimage.com/600x500"],
